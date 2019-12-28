@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/template/layoutBase.xhtml">
+	<ui:define name="header">
+	    Add your header here or delete to use the default
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<fieldset>
+				<legend>Dados do produto</legend>
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Nome: " for="nome" />
+					<p:inputText id="nome" value="#{produtoBean.produto.nome}" />
+
+					<p:outputLabel value="Sabor: " for="sabor" />
+					<p:inputText id="sabor" value="#{produtoBean.produto.sabor}" />
+
+					<p:outputLabel value="Tamanho: " for="tamanho" />
+					<p:inputText id="tamanho" value="#{produtoBean.produto.tamanho}" />
+
+					<p:outputLabel value="Preço: " for="preco" />
+					<p:inputText id="preco" value="#{produtoBean.produto.preco}" />
+
+				</p:panelGrid>
+				<p:commandButton value="Gravar" action="#{produtoBean.gravar}" />
+			</fieldset>
+		</h:form>
+		<h:form id="formTabelaProduto">
+			<p:dataTable id="tabelaProduto" value="#{produtoBean.produtos}"
+				var="produto">
+				<p:column>
+					<f:facet name="header">Nome do suco</f:facet>
+					<h:outputText value="#{produto.nome}"></h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">Sabor</f:facet>
+					<h:outputText value="#{produto.sabor}"></h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">Tamanho</f:facet>
+					<h:outputText value="#{produto.tamanho}"></h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">Preço</f:facet>
+					<h:outputText value="#{produto.preco}">
+						<f:convertNumber type="currency" pattern="RS #0.00"
+							currencySymbol="R$" locale="pt_BR">
+						</f:convertNumber>
+					</h:outputText>
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Ações</f:facet>
+					<p:commandLink value="remover"
+						action="#{produtoBean.excluir(produto)}">
+					</p:commandLink>
+					<p:commandLink value=" alerar"
+						action="#{produtoBean.excluir(produto)}">
+					</p:commandLink>
+
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+
+
+	</ui:define>
+	<ui:define name="footer">
+	    Add your footer here or delete to use the default
+	</ui:define>
+</ui:composition>
+</html>
